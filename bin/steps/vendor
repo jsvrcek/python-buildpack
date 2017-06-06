@@ -14,7 +14,7 @@
 
 source $BIN_DIR/utils
 
-count=`ls -1 $BUILD_DIR/cf/vendor/*.tar.gz 2>/dev/null | wc -l`
+count=`ls -1 $BUILD_DIR/cf/vendor/*.vendor.tar.gz 2>/dev/null | wc -l`
 # if gzip compressed tar archive file exists, extract it to vendor directory.
 if [ $count != 0 ]; then
   mkdir -p /app/.heroku/vendor
