@@ -38,7 +38,7 @@ source $BIN_DIR/utils
 #  done
 #  popd &>/dev/null
 #fi
-
+la -al /app/.cloudfoundry/vendor
 count=`ls -1 /app/.cloudfoundry/vendor/*.vendor.tar.gz | wc -l`
 # if gzip compressed tar archive file exists, extract it to vendor directory.
 if [ $count != 0 ]; then
