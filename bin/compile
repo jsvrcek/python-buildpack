@@ -217,6 +217,9 @@ source $BIN_DIR/steps/setuptools
 # Uninstall removed dependencies with Pip.
 source $BIN_DIR/steps/pip-uninstall
 
+# Install vendor libraries
+source $BIN_DIR/steps/vendor
+
 # Mercurial support.
 source $BIN_DIR/steps/mercurial
 

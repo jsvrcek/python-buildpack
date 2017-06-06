@@ -1,0 +1,46 @@
+#!/usr/bin/env bash
+#####
+#
+# This script serves as the vendor build step of the compiler.
+#
+# This script is invoked by [`bin/compile`](/).
+#
+# The script is looking for precompiled binaries, headers, libraries and
+# profile.d scripts. You will need to ensure you match the docker hub version
+# of cflinuxfs2 in your environment when compiling your required files.
+# [https://hub.docker.com/r/cloudfoundry/cflinuxfs2/tags/]
+#
+#####
+
+source $BIN_DIR/utils
+
+bpwatch start vendor_install
+
+if [ -d $BUILD_DIR/cf/vendor ]; then
+  count=`ls -1 $BUILD_DIR/cf/vendor/*.tar.gz 2>/dev/null | wc -l`
+fi
+# if gzip compressed tar archive file exists, extract it to vendor directory.
+if [ $count != 0 ]; then
+  mkdir -p /app/.heroku/vendor
+  pushd $BUILD_DIR/cf/vendor &>/dev/null
+  files=`ls -1 *.tar.gz 2>/dev/null`
+  for i in $files; do
+    echo "-----> adding $(echo $i | cut -f 1 -d '.') libs to vendor dir"
+    tar xvf $i -C /app/.heroku/vendor &>/dev/null
+    pushd /app/.heroku/vendor &>/dev/null
+    # if shell script exists, move it to .profile.d directory.
+    if ls *.sh &>/dev/null; then
+      mkdir -p /app/.heroku/.profile.d
+      pscripts=`ls -1 *.sh 2>/dev/null`
+      for s in $pscripts; do
+        echo "-----> adding $s to .profile.d dir"
+        mv $s /app/.heroku/.profile.d
+      done
+    fi
+    popd &>/dev/null
+    rm $i
+  done
+  popd &>/dev/null
+fi
+
+bpwatch stop vendor_install
