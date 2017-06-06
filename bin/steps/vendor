@@ -39,7 +39,7 @@ source $BIN_DIR/utils
 #  popd &>/dev/null
 #fi
 
-count=`ls -1 $BUILD_DIR/.cloudfoundry/vendor/*.vendor.tar.gz | wc -l`
+count=`ls -1 /app/.cloudfoundry/vendor/*.vendor.tar.gz | wc -l`
 # if gzip compressed tar archive file exists, extract it to vendor directory.
 if [ $count != 0 ]; then
   mkdir -p /app/.heroku/vendor
