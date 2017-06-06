@@ -178,6 +178,9 @@ if [[ $BUILD_DIR != '/app' ]]; then
     # Note: .cloudfoundry/src is copied in later.
 fi
 
+# Install vendor libraries
+source $BIN_DIR/steps/vendor
+
 # Install Python.
 source $BIN_DIR/steps/python
 
@@ -218,9 +221,6 @@ set-env LD_LIBRARY_PATH '/app/.cloudfoundry/vendor/lib:/app/.cloudfoundry/python
 set-default-env LANG en_US.UTF-8
 set-default-env PYTHONHASHSEED random
 set-default-env PYTHONPATH /app/
-
-# Install vendor libraries
-source $BIN_DIR/steps/vendor
 
 # Install sane-default script for $WEB_CONCURRENCY and $FORWARDED_ALLOW_IPS.
 cp $ROOT_DIR/vendor/python.gunicorn.sh $GUNICORN_PROFILE_PATH
