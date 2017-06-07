@@ -30,11 +30,11 @@ if [ $count != 0 ]; then
     pushd /app/.heroku/vendor &>/dev/null
     # if shell script exists, move it to .profile.d directory.
     if ls *.sh &>/dev/null; then
-      mkdir -p /app/.heroku/.profile.d
+      mkdir -p /app/.profile.d
       pscripts=`ls -1 *.sh 2>/dev/null`
       for s in $pscripts; do
         echo "-----> adding $s to .profile.d dir"
-        mv $s /app/.heroku/.profile.d
+        mv $s /app/.profile.d
       done
     fi
     popd &>/dev/null
