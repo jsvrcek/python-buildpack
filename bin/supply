@@ -82,6 +82,9 @@ $BIN_DIR/steps/pipenv-python-version.rb $BUILD_DIR
 # Install Python,.
 source $BIN_DIR/steps/python
 
+# Install vendor libraries
+source $BIN_DIR/steps/vendor
+
 # Install pip-pop
 source $BIN_DIR/steps/pip-pop
 
@@ -92,9 +95,6 @@ source $BIN_DIR/steps/pipenv
 if [ ! -f requirements.txt ]; then
   echo "-e ." > requirements.txt
 fi
-
-# Install vendor libraries
-source $BIN_DIR/steps/vendor
 
 source $BIN_DIR/steps/cryptography
 
