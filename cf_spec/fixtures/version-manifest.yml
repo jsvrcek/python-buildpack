@@ -1,5 +1,8 @@
 ---
 language: python
+default_versions:
+- name: python
+  version: 2.7.14
 dependencies:
 - name: libmemcache
   version: 2.7.18
@@ -10,12 +13,4 @@ dependencies:
 - name: python
   version: 2.7.13
 - name: python
-  version: 2.8.19
-- name: python-ucs2
-  version: 2.7.12
-- name: python-ucs2
-  version: 2.7.14
-- name: python-ucs2
-  version: 2.7.13
-- name: python-ucs2
   version: 2.8.19

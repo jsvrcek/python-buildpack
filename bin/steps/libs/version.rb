@@ -4,25 +4,25 @@ require 'rubygems'
 require 'pathname'
 
 manifest = ARGV[0]
-suffix = ''
 
-if ARGV[1].split('-').last == "ucs2"
-  suffix = '-ucs2'
+version = ARGV[1].to_s.strip.gsub('python-', '')
+
+if version == ''
+  default_version = YAML.load_file(manifest)['default_versions']
+  version = default_version.detect { |a| a['name'] == 'python' }.fetch('version')
 end
-
-version = ARGV[1].gsub('python-', '').gsub('-ucs2', '')
 
 if version.match(/\.x$/)
   v = version.gsub(/\.x$/, '.')
   hash = YAML.load_file(manifest)['dependencies']
   entries = hash.select do |e|
-      e['name'] == 'python'+suffix && e['version'].start_with?(v)
+      e['name'] == 'python' && e['version'].start_with?(v)
   end.sort_by do |e|
     Gem::Version.new(e['version'])
   end
-  full_version = "python-#{entries.last['version']}#{suffix}" if entries.last
+  full_version = "python-#{entries.last['version']}" if entries.last
 else
-  full_version = "python-#{version}#{suffix}"
+  full_version = "python-#{version}"
 end
 
-puts full_version
+STDOUT.write full_version
