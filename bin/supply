@@ -93,6 +93,9 @@ if [ ! -f requirements.txt ]; then
   echo "-e ." > requirements.txt
 fi
 
+# Install vendor libraries
+source $BIN_DIR/steps/vendor
+
 source $BIN_DIR/steps/cryptography
 
 source $BIN_DIR/steps/pylibmc
