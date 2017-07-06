@@ -51,6 +51,13 @@ source $BIN_DIR/steps/mercurial
 # Uninstall removed dependencies with Pip.
 source $BIN_DIR/steps/pip-uninstall
 
+puts-line "Installing pip...with the following GDAL settings"
+echo $GDAL_DATA
+echo $LD_LIBRARY_PATH
+echo $GEOS_LIBRARY_PATH
+echo $PROJ_LIB
+echo $PATH
+
 # Install dependencies with Pip (where the magic happens).
 source $BIN_DIR/steps/pip-install
 
